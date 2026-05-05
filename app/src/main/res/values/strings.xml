@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">StudentContactApp</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="login_button">LOGIN</string>
+    <string name="welcome_message">Welcome, %1$s!</string>
+    <string name="student_directory">Student Directory</string>
+    <string name="profile">Profile</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="font_size">Font Size</string>
+    <string name="notification">Notifikasi</string>
+    <string name="logout">LOGOUT</string>
+    <string name="detail">Detail</string>
+    <string name="catatan">📝 Catatan</string>
+    <string name="tulis_catatan">Tulis catatan di sini...</string>
+    <string name="simpan">Simpan</string>
+    <string name="muat">Muat</string>
+    <string name="hapus_catatan">Hapus</string>
+    <string name="status_tersimpan">✓ Tersimpan (%1$d bytes)</string>
+    <string name="status_belum_ada">Belum ada catatan</string>
+    <string name="tambah_mahasiswa">Tambah Mahasiswa</string>
+    <string name="edit_mahasiswa">Edit Mahasiswa</string>
+    <string name="nama">Nama</string>
+    <string name="nim">NIM</string>
+    <string name="email">Email</string>
+    <string name="semester">Semester</string>
+    <string name="pilih_prodi">Pilih Prodi</string>
+    <string name="hapus_data_title">Hapus Data?</string>
+    <string name="hapus_data_message">Hapus \"%1$s\"? Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="batal">Batal</string>
+    <string name="hapus">Hapus</string>
+    <string name="cari_mahasiswa">Cari Nama atau NIM...</string>
+</resources>
