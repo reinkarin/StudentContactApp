@@ -26,6 +26,7 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: StudentAdapter
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
     private lateinit var prefManager: PrefManager
+    private var isAdmin = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,17 +40,29 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         prefManager = PrefManager(requireContext())
-        binding.tvWelcome.text = "Welcome, ${prefManager.getUsername()}!"
+        isAdmin = prefManager.getUsername() == "admin"
+        
+        val fullName = prefManager.getFullName() ?: "User"
+        val firstName = fullName.split(" ").firstOrNull() ?: fullName
+        binding.tvWelcome.text = "Welcome, $firstName!"
+
+        // Sembunyikan tombol tambah jika bukan admin
+        binding.fabAdd.visibility = if (isAdmin) View.VISIBLE else View.GONE
 
         setupRecyclerView()
-        setupSwipeToDelete()
+        
+        // Hanya aktifkan swipe to delete jika admin
+        if (isAdmin) {
+            setupSwipeToDelete()
+        }
 
         lifecycleScope.launch {
             database.studentDao().getAllStudents().collect { students ->
                 if (students.isEmpty()) {
-                    insertSampleData()
+                    insertSampleData(fullName)
+                } else {
+                    adapter.submitList(students)
                 }
-                adapter.submitList(students)
             }
         }
 
@@ -60,6 +73,7 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = StudentAdapter(
+            isAdmin = isAdmin,
             onEditClick = { student ->
                 val action = HomeFragmentDirections.actionHomeFragmentToAddEditFragment(student.id)
                 findNavController().navigate(action)
@@ -117,8 +131,9 @@ class HomeFragment : Fragment() {
             .show()
     }
 
-    private suspend fun insertSampleData() {
-        val sampleStudents = listOf(
+    private suspend fun insertSampleData(currentUserFullName: String) {
+        val sampleStudents = mutableListOf(
+            StudentEntity(name = currentUserFullName, nim = "2024000", prodi = "T. Informatika", email = "${currentUserFullName.lowercase().replace(" ", "")}@mail.com", semester = 1),
             StudentEntity(name = "Ahmad Fauzi", nim = "2024001", prodi = "T. Informatika", email = "ahmad@mail.com", semester = 3),
             StudentEntity(name = "Budi Santoso", nim = "2024002", prodi = "Sistem Informasi", email = "budi@mail.com", semester = 5),
             StudentEntity(name = "Clara Wijaya", nim = "2024003", prodi = "T. Informatika", email = "clara@mail.com", semester = 1)

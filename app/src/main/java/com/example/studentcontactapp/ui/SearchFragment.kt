@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentcontactapp.database.AppDatabase
 import com.example.studentcontactapp.database.entity.StudentEntity
 import com.example.studentcontactapp.databinding.FragmentSearchBinding
+import com.example.studentcontactapp.utils.PrefManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,6 +24,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: StudentAdapter
+    private lateinit var prefManager: PrefManager
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
     private var searchJob: Job? = null
 
@@ -37,6 +39,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        prefManager = PrefManager(requireContext())
         setupRecyclerView()
 
         binding.etSearch.addTextChangedListener(object : TextWatcher {
@@ -68,7 +71,9 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
+        val isAdmin = prefManager.getUsername() == "admin"
         adapter = StudentAdapter(
+            isAdmin = isAdmin,
             onEditClick = { student ->
                 val action = SearchFragmentDirections.actionSearchFragmentToAddEditFragment(student.id)
                 findNavController().navigate(action)

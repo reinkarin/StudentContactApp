@@ -11,6 +11,7 @@ class PrefManager(context: Context) {
         private const val PREF_NAME = "StudentPref"
         private const val IS_LOGGED_IN = "isLoggedIn"
         private const val USERNAME = "username"
+        private const val FULL_NAME = "full_name"
         private const val IS_REMEMBER_ME = "isRememberMe"
     }
 
@@ -27,6 +28,13 @@ class PrefManager(context: Context) {
     }
 
     fun getUsername(): String? = pref.getString(USERNAME, "")
+
+    fun setFullName(fullName: String) {
+        editor.putString(FULL_NAME, fullName)
+        editor.apply()
+    }
+
+    fun getFullName(): String? = pref.getString(FULL_NAME, "")
 
     fun setRememberMe(isRememberMe: Boolean) {
         editor.putBoolean(IS_REMEMBER_ME, isRememberMe)

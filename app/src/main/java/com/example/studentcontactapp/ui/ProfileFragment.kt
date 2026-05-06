@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.studentcontactapp.LoginActivity
 import com.example.studentcontactapp.databinding.FragmentProfileBinding
@@ -32,7 +33,7 @@ class ProfileFragment : Fragment() {
         prefManager = PrefManager(requireContext())
         settingsManager = SettingsManager(requireContext())
 
-        binding.tvUsername.text = prefManager.getUsername()
+        binding.tvUsername.text = prefManager.getFullName() ?: prefManager.getUsername()
         
         binding.switchDarkMode.isChecked = settingsManager.isDarkMode()
         binding.switchFontSize.isChecked = settingsManager.isFontSizeLarge()
@@ -40,10 +41,17 @@ class ProfileFragment : Fragment() {
 
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
             settingsManager.setDarkMode(isChecked)
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
 
         binding.switchFontSize.setOnCheckedChangeListener { _, isChecked ->
             settingsManager.setFontSizeLarge(isChecked)
+            // Font size changes usually require activity recreation to apply styles or manual update
+            activity?.recreate()
         }
 
         binding.switchNotification.setOnCheckedChangeListener { _, isChecked ->

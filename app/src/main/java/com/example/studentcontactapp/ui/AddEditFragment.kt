@@ -38,11 +38,16 @@ class AddEditFragment : Fragment() {
 
         if (args.studentId != -1) {
             isEditMode = true
+            binding.tvTitle.text = "Edit Mahasiswa"
             loadStudentData(args.studentId)
         }
 
         binding.btnSave.setOnClickListener {
             saveStudent()
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
@@ -70,11 +75,11 @@ class AddEditFragment : Fragment() {
     }
 
     private fun saveStudent() {
-        val name = binding.etName.text.toString()
-        val nim = binding.etNim.text.toString()
+        val name = binding.etName.text.toString().trim()
+        val nim = binding.etNim.text.toString().trim()
         val prodi = binding.spinnerProdi.selectedItem.toString()
-        val email = binding.etEmail.text.toString()
-        val semesterStr = binding.etSemester.text.toString()
+        val email = binding.etEmail.text.toString().trim()
+        val semesterStr = binding.etSemester.text.toString().trim()
 
         if (name.isEmpty() || nim.isEmpty() || prodi == "Pilih Prodi" || email.isEmpty() || semesterStr.isEmpty()) {
             Toast.makeText(requireContext(), "Harap isi semua data", Toast.LENGTH_SHORT).show()
