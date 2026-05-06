@@ -22,6 +22,13 @@
 4. **Navigasi Modern**:
     - Implementasi Navigation Component dengan Bottom Navigation View untuk perpindahan antar halaman yang mulus.
 
+### 🚀 Teknologi & Komponen (Materi Praktikum):
+- **Activity & Fragment**: Arsitektur berbasis Fragment untuk konten dinamis dan Activity untuk alur autentikasi (Login & Register).
+- **Navigation Component**: Mengelola alur aplikasi menggunakan `nav_graph.xml` serta pengiriman data antar halaman dengan **Safe Args**.
+- **RecyclerView & Adapter**: Menampilkan daftar data mahasiswa secara efisien menggunakan `ListAdapter` dan `DiffUtil`.
+- **Layout XML & Widgets**: Desain antarmuka responsif menggunakan `ConstraintLayout`, `Material Design Components`, dan pemanfaatan **ViewBinding**.
+- **Kotlin Fundamentals**: Implementasi `data class` untuk entitas, `lambda expressions` untuk event handling, serta **Coroutines** untuk operasi database yang asinkron.
+
 ---
 
 ## 💾 Metode Penyimpanan & Alasan
